@@ -1,0 +1,162 @@
+		
+Edit Plus:	      Font : Courier New	
+----------	      Size : 14
+				Font Style : Bold
+
+
+
+Destructors
+-----------
+It is also a special method available to a class just like a constructor but functions opposite to 
+constructors i.e., a consturctor is called when object of the class os created and destructor is 
+called when object of the class is destroyed.
+
+Both a constructor and destructor mehtods will have the same name i.e., the name of the class in
+ which they are defined. But to differentiate between both we use a tiled(~) operator before the 
+destructor method.
+
+	class Test
+	{
+		Test()
+		{
+			//constructor
+		}
+		~Test()
+		{
+			//destructor
+		}
+	}
+
+
+Note:
+-----
+A constructor method can have modifiers as well as parameters also where as a destructor method
+ cannot have.
+
+
+Q. When does a destructor mehtod get called.
+A. A destructor is called when ever object of a class is destroyed.
+
+Q. Who destroys object of a class.
+A. Garbage collector is responsible for destroying the object of a calss.
+
+Q. When Garbage collector will destroy object of the class.
+A. Garbage collector can destroy object of a class in any of the following cases.
+
+	1. In the end of any programs execution Garbage collector will destroy all the
+         objects that are present in the program.
+
+	2. Some times in the middle of a program execution also Garbage collector will be
+      called implicitly if the memory is full, so that it comes into picture to destroy 
+   unused objects that are present in the program.
+
+	3. We are also given with a chance of explicitly calling the Garbage collector in 
+     the middle of a programs execution. So that it identifies unused objects of the    
+ programs and destroyes them. To call a Garbage collector explicitly we are         
+ provided with the mehtod GC.Collect().
+
+
+Note:
+-----
+Even if we are provided with GC.Collect() method it is not advisied to call it because whenever 
+Garbage collector comes into picture to destroy unused objects in a program, the program is suspended
+ until garbage collector completes its work and leaves the program.
+
+
+
+
+Add a class DestDemo.cs and write the following code.
+
+
+ class DestDemo
+    {
+        public DestDemo()
+        {
+            Console.WriteLine("Object Created");
+        }
+        ~DestDemo()
+        {
+            Console.WriteLine("Object Destroyed");
+        }
+        static void Main()
+        {
+            DestDemo d1 = new DestDemo();
+            DestDemo d2 = new DestDemo();
+
+            //d1 = null;
+            //GC.Collect();
+
+            Console.ReadLine();
+        }
+    }
+
+
+Run the program using Ctrl+F5 and watch the output of it. First it shows you the constructor getting
+ called for two times because two objects are created in you class.
+
+Now press the Enter key which completes the execution of ReadLine() method and also that is the end 
+of your program. Now you will see the Destructors getting called. Because we have discussed in our
+ first rule that in the end of the programs execution all the objects that are active in the
+ program will be destroyed.
+
+Now un-comment the commented lines in your program and again execute the program using Ctrl+F5. 
+Now you will watch the constructors getting called showing you object is created and before 
+execution of ReadLine() method only one object getting destroyed because we have assigned null 
+to it and then Garbage Collector called explicitly. But the second object is destroyed after 
+execution of ReadLine() mehtod only.
+
+
+
+
+
+Add a class TestDemo2.cs and write the following code.
+
+
+	class TestDemo2:DestDemo 
+    {
+        public TestDemo2()
+        {
+            Console.WriteLine("Object 2 created");
+        }
+        ~TestDemo2()
+        {
+            Console.WriteLine("Object2 destroyed");
+        }
+        static void Main()
+        {
+            TestDemo2 obj = new TestDemo2();
+            Console.ReadLine();
+        }
+   }
+
+
+
+
+Run the above program using Ctrl+F5 and watch the output of the program. First it calls you the 
+parents class Constructor and then calls you the child class constructor. After you press Enter
+ key first it class the child classes destructor and then calls the parent classes destructor.
+
+
+As we are aware that when ever object of a child class is created first it will invoke its parent 
+classes default constructor in the same way when the object of a child class is destroyed the it 
+calls its parents classes destructor also. But constructors are called in top to bottom hierarchy 
+and destructors are called in bottom to top heirarchy.
+
+
+Q. What is the need of Destructor.
+A. Destructors are basically used for de-allocation of the memory, but in managed languages like C#,
+ Java, etc memory management is completely tacken care by garbage collector if the resources are 
+managed. So these destructors are not that improtant if your program is dealing with all managed 
+resoruces.
+
+
+Some times out application may be dealing with some un-managed resources like Files, Databases, 
+etc which will not be under Garbage Collector constrol, Garbage Collector will never take the 
+responsibility of tacking these un-managed resources. So in that situations these destructors are 
+basically used for handling those resources like closing the files that are open, closing the data 
+base connections that are open etc.
+
+
+
+
+
